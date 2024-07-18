@@ -81,7 +81,8 @@ type_moves = {
 class Pokemon:
     def __init__(self, name:str, hp:int):
         self.name = name
-        self.hp = hp
+        self.hp = hp #For max HP tracking
+        self.current_hp = hp #For current HP tracking
         self.primary_type=pokemon_primary_types[name]
         self.moves = type_moves.get(self.primary_type, []) #Returns a list with dictionary entries example: 
         #[{'name': 'Bug Bite', 'damage': 60}, {'name': 'X-Scissor', 'damage': 80}, {'name': 'Signal Beam', 'damage': 75}, {'name': 'Leech Life', 'damage': 80}]
@@ -100,6 +101,11 @@ class Pokemon:
 
         #Return the damage of the attack
         #return damage
+        pass
+
+    def take_damage(self):
+        pass
+    def heal(self):
         pass
 
     def __repr__(self):

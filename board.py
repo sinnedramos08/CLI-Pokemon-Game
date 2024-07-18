@@ -173,7 +173,8 @@ class Board:
         #We place pokemons on the grass tiles
         pokemon_enemy=Pokemon(name=random.choice(list(pokemon_primary_types.keys())), hp=random.randint(200,800))
         return pokemon_enemy
-
+    
+    
 
             
 
