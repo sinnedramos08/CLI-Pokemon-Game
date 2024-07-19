@@ -134,6 +134,9 @@ class GameFlow:
 
 
             # Battle Logic Here
+
+            #Ensure that pokemon_player is not None
+            assert self.pokemon_player is not None
         
             #If we encounter pokemon for the first time, we create a battle class for the first time
             if not self.battle: #This will check if the self.battle has no value or None
@@ -147,7 +150,7 @@ class GameFlow:
                 self.battle.pokeballs = self.pokeballs 
 
             #Start battle
-            self.battle.start_battle(self.pokemon_player, pokemon_enemy)
+            self.battle.start_battle()
 
             #Update pokeballs and pokemonlist based on the result of battle
             self.pokeballs = self.battle.pokeballs
