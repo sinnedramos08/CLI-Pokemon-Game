@@ -103,9 +103,15 @@ class GameFlow:
     
     #Start the game, create new baord and initialize movements
     def start_game(self):
+
         while True:
             self.board.print_board()
             movement = input("Enter movement (w/a/s/d): ").strip().lower()
+
+            #Heal all pokemon for 30 HP when moving
+            self.heal_all_pokemon_step(30)
+
+            #Movements
             if movement == "w":
                 self.board.move_up()
             elif movement == "s":
@@ -114,7 +120,10 @@ class GameFlow:
                 self.board.move_right()
             elif movement == "a":
                 self.board.move_left()
+
+            #End game if no more steps
             if self.board.steps==0:
+                print("Congratulations! You have successfully completed CLI ")
                 break
 
             if self.board.is_ash_on_grass():
@@ -126,12 +135,13 @@ class GameFlow:
             if self.battle and self.battle.game_over:
                 print("Game Over! All your Pokemon have fainted.")
                 break
+                
+    def heal_all_pokemon_step(self, amount:int):
+        if self.pokemon_player_list:
+            for pokemon in self.pokemon_player_list.values():
+                pokemon.current_hp = min(pokemon.hp, pokemon.current_hp + amount)
+                pokemon.check_status()
 
-            #Initiate game over sequence if there are no more steps
-            if self.board.steps<=0:
-                print("Congratulations! You have successfully completed CLI Pokemon Game")
-                break
-    
     #Encountering Pokemon
     def pokemon_encounter(self):
 
@@ -186,8 +196,9 @@ class GameFlow:
         print("Goodbye!")
 
     def print_pokemon_list(self):
+
         assert self.pokemon_player_list is not None
         for key,pokemon in self.pokemon_player_list.items():
-            print(f"{key}. {pokemon.name} MaxHP:{pokemon.hp} Status:{pokemon.status}\n")
+            print(f"{key}. {pokemon.name} | CurrentHP:{pokemon.current_hp} | MaxHP:{pokemon.hp} | Status:{pokemon.status}\n")
             time.sleep(1)
         pass

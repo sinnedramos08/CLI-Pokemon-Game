@@ -103,7 +103,7 @@ class Pokemon:
 
     def heal(self):
         #Heal by 100 hp but not exceed max health
-        heal_amount = 100
+        heal_amount = 200
         self.current_hp = min(self.current_hp + heal_amount, self.hp)
         self.check_status()
 

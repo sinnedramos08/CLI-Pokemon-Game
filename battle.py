@@ -98,6 +98,7 @@ class Battle:
                 #If not captured, still fight with the pokemon
                 else:
                     print(f"Wild {self.pokemon_enemy.name} broke free!\n")
+                    time.sleep(3)
                     self.enemy_turn(pokemon_player)
                     continue
             #Choice to heal current pokemon
