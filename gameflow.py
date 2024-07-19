@@ -5,12 +5,13 @@ from battle import Battle
 import time
 
 class GameFlow:
-    def __init__(self, board_width:int, board_height:int, grass_count:int, steps:int,pokeballs:int):
+    def __init__(self, board_width:int, board_height:int, grass_count:int, steps:int,pokeballs:int, heal:int):
         self.board=Board(board_width, board_height, grass_count, steps)
         self.pokemon_player=None #Initialized as None untile we choose our first pokemon
         self.pokeballs=pokeballs
         self.battle=None #Initialize this as None for the first time
         self.pokemon_player_list= None
+        self.heal: int=heal
 
     def print_intro(self):
         print("Welcome to CLI Pokemon Game")
@@ -83,6 +84,8 @@ class GameFlow:
         #Create a new pokemon for the player
         self.pokemon_player= self.create_pokemon_player(selected_pokemon)
 
+        self.pokemon_player_list={1:self.pokemon_player}
+
         #This will return a Pokemon object from the Pokemon class
         print(f"Congrats! you received {self.pokemon_player.name}\n")
         #Timer for entering the game
@@ -116,9 +119,22 @@ class GameFlow:
 
             if self.board.is_ash_on_grass():
                 self.pokemon_encounter()
+            
+            #Initiate game over sequence if there are no more Pokemons available to battle
+            #self.battle is initially None, this means that if there is a battle object, and it has game over attribute = true
+            #Game over sequence is initiated
+            if self.battle and self.battle.game_over:
+                print("Game Over! All your Pokemon have fainted.")
+                break
+
+            #Initiate game over sequence if there are no more steps
+            if self.board.steps<=0:
+                print("Congratulations! You have successfully completed CLI Pokemon Game")
+                break
     
     #Encountering Pokemon
     def pokemon_encounter(self):
+
         #Check if there will be a pokemon encounter on that grass
         #50% chance of encounter when on a grass
         rand_num=random.randint(0,1)
@@ -135,19 +151,20 @@ class GameFlow:
 
             # Battle Logic Here
 
-            #Ensure that pokemon_player is not None
+            #Ensure that pokemon_player is not None, helps for code warnings when instantiating using this object
             assert self.pokemon_player is not None
         
             #If we encounter pokemon for the first time, we create a battle class for the first time
             if not self.battle: #This will check if the self.battle has no value or None
-                self.battle = Battle(self.pokemon_player, pokemon_enemy, self.pokeballs)
+                self.battle = Battle(self.pokemon_player, pokemon_enemy, self.pokeballs,self.heal)
             
             #This means that we have already a Battle object and we don't need to instantiate it again
             #We will just update the parameters for the battle object before starting battle
             else:
                 self.battle.pokemon_enemy = pokemon_enemy
                 self.battle.pokemon_player = self.pokemon_player
-                self.battle.pokeballs = self.pokeballs 
+                self.battle.pokeballs = self.pokeballs
+                self.battle.heal= self.heal
 
             #Start battle
             self.battle.start_battle()
@@ -155,3 +172,22 @@ class GameFlow:
             #Update pokeballs and pokemonlist based on the result of battle
             self.pokeballs = self.battle.pokeballs
             self.pokemon_player_list = self.battle.pokemon_player_list
+            self.heal=self.battle.heal
+
+    def end_game(self):
+        time.sleep(3)
+        print("\nHere are all the pokemons you captured:\n")
+        time.sleep(2)
+        self.print_pokemon_list()
+        print("\nThank you for playing CLI Pokemon Game")
+        time.sleep(2)
+        print("This Game is created by: Dennis Andrew R. Ramos")
+        time.sleep(3)
+        print("Goodbye!")
+
+    def print_pokemon_list(self):
+        assert self.pokemon_player_list is not None
+        for key,pokemon in self.pokemon_player_list.items():
+            print(f"{key}. {pokemon.name} MaxHP:{pokemon.hp} Status:{pokemon.status}\n")
+            time.sleep(1)
+        pass

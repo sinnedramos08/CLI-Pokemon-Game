@@ -20,16 +20,7 @@ class Board:
     
     #Create a new baord with grass
     def make_new_board(self):
-        '''
-        We will use 2D List with list within the list
-        The output will look like this:
-
-        [[' ', ' ', ' ', ' '], 
-        [' ', ' ', ' ', ' '], 
-        [' ', ' ', ' ', ' '], 
-        [' ', ' ', ' ', ' '], 
-        [' ', ' ', ' ', ' ']]
-        '''
+        
         board=[[" " for _ in range(self.width)] for _ in range(self.height)]
         board[0][0]="A"
 

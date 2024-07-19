@@ -1,4 +1,4 @@
-import random
+import time
 pokemon_primary_types = {
     "Bulbasaur": "Grass", "Ivysaur": "Grass", "Venusaur": "Grass",
     "Charmander": "Fire", "Charmeleon": "Fire", "Charizard": "Fire",
@@ -77,7 +77,6 @@ type_moves = {
     ]
 }
 
-
 class Pokemon:
     def __init__(self, name:str, hp:int):
         self.name = name
@@ -86,27 +85,35 @@ class Pokemon:
         self.primary_type=pokemon_primary_types[name]
         self.moves = type_moves.get(self.primary_type, []) #Returns a list with dictionary entries example: 
         #[{'name': 'Bug Bite', 'damage': 60}, {'name': 'X-Scissor', 'damage': 80}, {'name': 'Signal Beam', 'damage': 75}, {'name': 'Leech Life', 'damage': 80}]
+        self.status="healthy" #Default status, fainted if 0 hp
 
-    def attack(self):
-        #Randomly choose attack based on move list
-        attack_number=random.randint(1,4)
-        if attack_number == 0:
-            pass
-        elif attack_number == 1:
-            pass
-        elif attack_number == 2:
-            pass
-        elif attack_number == 3:
-            pass
+    def attack_pokemon(self, move_number:int):
+        selected_move=self.moves[move_number-1]
+        print(f"\n{self.name} used {selected_move['name']}.\n")
+        time.sleep(2)
+        print(f"It dealt {selected_move['damage']} damage")
+        pokemon_damage=int(selected_move['damage'])
+        return pokemon_damage
+        
+    def take_damage(self, damage:int):
+        self.current_hp = max(self.current_hp-damage,0) #Ensures that pokemon health does not fall below zero hp
+        
+        #Check the status if damage is taken
+        self.check_status() #Change the self.status attribute accordingly
 
-        #Return the damage of the attack
-        #return damage
-        pass
-
-    def take_damage(self):
-        pass
     def heal(self):
-        pass
+        #Heal by 100 hp but not exceed max health
+        heal_amount = 100
+        self.current_hp = min(self.current_hp + heal_amount, self.hp)
+        self.check_status()
 
+    def check_status(self):
+        if self.current_hp==0:
+            self.status="fainted"
+        elif 0<(self.current_hp/self.hp)*100 <50:
+            self.status="injured"
+        else:
+            self.status="healthy"
+        
     def __repr__(self):
         return f"{self.name} (HP: {self.hp}, Type: {self.primary_type}, Movelist: {self.moves})"
