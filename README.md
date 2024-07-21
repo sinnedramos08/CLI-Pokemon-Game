@@ -12,7 +12,7 @@ CLI Pokemon Battle Game is a text-based game implemented in Python that simulate
 
 # Installation
 1. Clone the repository
-'''
+```bash
 git clone https://github.com/yourusername/cli-pokemon-game.git
 cd cli-pokemon-game
-'''
+```
