@@ -17,6 +17,7 @@ git clone https://github.com/yourusername/cli-pokemon-game.git
 cd cli-pokemon-game
 ```
 2. Ensure you have Python 3.6+ installed on your machine.
+3. Run main.py to play the game.
 
 ## Game Mechanics
 ### Board Navigation
