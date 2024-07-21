@@ -17,10 +17,21 @@ git clone https://github.com/yourusername/cli-pokemon-game.git
 cd cli-pokemon-game
 ```
 2. Ensure you have Python 3.6+ installed on your machine.
-3. Run main.py to play the game.
+
+## Usage
+1. Navigate to the project directory.
+2. Run the game script:
+```bash
+python main.py
+```
+3. Follow the on-screen instructions to play the game.
 
 ## Game Mechanics
 ### Board Navigation
+- At the start of the game, input your desired board dimensions:
+  - Width: Specify the width of the game board.
+  - Height: Specify the height of the game board.
+  - Number of Grass Tiles: Determine how many grass tiles (where Pokémon encounters occur) will be on the board. 
 - Move around the board using w, a, s, d keys.
 - Each move consumes a step and heals your Pokemon team by 30 HP (up to their maximum HP).
 
