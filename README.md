@@ -16,3 +16,9 @@ CLI Pokemon Battle Game is a text-based game implemented in Python that simulate
 git clone https://github.com/yourusername/cli-pokemon-game.git
 cd cli-pokemon-game
 ```
+2. Ensure you have Python 3.6+ installed on your machine.
+
+# Game Mechanics
+## Board Navigation
+- Move around the board using w, a, s, d keys.
+- Each move consumes a step and heals your Pokémon team by 30 HP (up to their maximum HP).
