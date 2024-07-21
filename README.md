@@ -35,7 +35,7 @@ python main.py
 - Move around the board using w, a, s, d keys.
 - Each move consumes a step and heals your Pokemon team by 30 HP (up to their maximum HP).
 
-## Pokemon Battles
+### Pokemon Battles
 Engage in battles with wild Pokemon encountered on the board. In each battle, you have several strategic options:
 1. **Fight** - Choose from your Pokemon's unique moves to attack the wild Pokemon. Each move has different damage values and effects
   - **Player's Turn** - Select a move from your Pokemon's move list. The move deals a specified amount of damage to the wild Pokemon.
